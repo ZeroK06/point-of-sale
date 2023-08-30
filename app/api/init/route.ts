@@ -19,7 +19,14 @@ export async function GET(req: Request) {
       })
     }
     const secret_key = process.env.NEXT_PUBLIC_JWT_KEY
-    const token = await sign({ init: true }, secret_key)
+
+    if (!secret_key) {
+      return NextResponse.json({
+        success: false,
+        error: { code: 0, message: 'Error interno de servidor, JWT' },
+      })
+    }
+    const token = await sign({ init: true }, secret_key, { expiresIn: '6h' })
     cookies().set('token-auth', token)
 
     return NextResponse.json({ success: true, token })
