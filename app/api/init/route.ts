@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { Prisma, PrismaClient } from '@prisma/client'
 import { NextResponse } from 'next/server'
 import { sign } from 'jsonwebtoken'
 import { cookies } from 'next/headers'
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
     }
     if (Array.isArray(props.services)) {
       const services = await prisma.servicio.createMany({
-        data: props.services.map(item => ({
+        data: props.services.map((item: Prisma.ServicioSelect) => ({
           ...item,
           price: Number(item.price),
           duration: Number(item.duration),
