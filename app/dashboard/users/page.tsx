@@ -257,7 +257,7 @@ const Page = () => {
                 <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6'>
                     {
                         users.map(user =>
-                            <div className={`rounded-2xl bg-white p-4 flex justify-between gap-3 ${!user.isVigent && 'grayscale'}`}>
+                            <div key={user.id} className={`rounded-2xl bg-white p-4 flex justify-between gap-3 ${!user.isVigent && 'grayscale'}`}>
                                 <div className='flex items-center gap-4'>
                                     <div className='h-16 w-16 bg-gray-200 rounded-full flex justify-center items-center'>JD</div>
                                     <div className='flex flex-col items-start gap-1'>

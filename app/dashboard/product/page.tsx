@@ -18,6 +18,7 @@ import validForm from '@/lib/validForm'
 import useCategories from '@/hook/useCategories'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command'
+import Image from 'next/image'
 
 
 const Page = () => {
@@ -56,7 +57,7 @@ const Page = () => {
                         de manera permanente. ¿Estás seguro de que deseas continuar?
                         <br />
                         <br />
-                        <b className='text-xs'>(Por seguridad el producto pasara a un estado 'no-visible')</b>
+                        <b className='text-xs'>(Por seguridad el producto pasara a un estado &apos;no-visible&apos;)</b>
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -387,7 +388,7 @@ const Page = () => {
                                             <TableCell className="font-medium ">{index}</TableCell>
                                             <TableCell>
                                                 {item.urlImage == 'N/A' ? item.urlImage :
-                                                    <img src={item.urlImage} className='h-10 w-10 object-cover rounded-lg' />
+                                                    <Image src={item.urlImage} className='h-10 w-10 object-cover rounded-lg' />
                                                 }
                                             </TableCell>
                                             <TableCell>{item.shortName}</TableCell>

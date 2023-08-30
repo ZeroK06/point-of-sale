@@ -319,7 +319,7 @@ const Page = () => {
                         <div className='flex justify-center'>
                             <div className='grid grid-cols-1 justify-items-center  gap-2 '>
                                 {categories.map(item =>
-                                    <div className='border border-gray-100 px-2 py-1 rounded-lg'>
+                                    <div key={item.name} className='border border-gray-100 px-2 py-1 rounded-lg'>
                                         {item.name}
                                         <div></div>
                                     </div>
@@ -366,7 +366,7 @@ const Page = () => {
                         <div className='flex justify-center'>
                             <div className='grid grid-cols-1 justify-items-center  gap-2 '>
                                 {services.map(item =>
-                                    <div className='border border-gray-100 px-2 py-1 rounded-lg'>
+                                    <div key={item.name} className='border border-gray-100 px-2 py-1 rounded-lg'>
                                         {item.name}
                                         <div></div>
                                     </div>
