@@ -45,7 +45,7 @@ export async function POST(req: Request) {
     }
     if (Array.isArray(props.services)) {
       const services = await prisma.servicio.createMany({
-        data: props.services.map((item: Prisma.ServicioSelect) => ({
+        data: props.services.map(item => ({
           ...item,
           price: Number(item.price),
           duration: Number(item.duration),
