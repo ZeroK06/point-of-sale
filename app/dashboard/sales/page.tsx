@@ -14,7 +14,7 @@ import { BsWhatsapp } from 'react-icons/bs'
 import { HiMiniPlusSmall, HiOutlineArrowPath, HiOutlineEllipsisVertical } from 'react-icons/hi2'
 
 
-const page = () => {
+const Page = () => {
 
     const { sales, isLoading, reload } = useSales()
 
@@ -222,4 +222,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

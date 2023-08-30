@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button'
 import useStore from '@/store/useStore'
 import { HiOutlineDeviceMobile } from 'react-icons/hi'
 
-const page = ({ params: { id } }: { params: { id: string } }) => {
+const Page = ({ params: { id } }: { params: { id: string } }) => {
 
     const [sale, setSale] = useState<Prisma.TicketVentaSelect>()
     const componentPrint1 = useRef(null)
@@ -513,4 +513,4 @@ const page = ({ params: { id } }: { params: { id: string } }) => {
     )
 }
 
-export default page
+export default Page

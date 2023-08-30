@@ -14,7 +14,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { HiMiniPlusSmall, HiOutlineArrowPath, HiOutlineEllipsisVertical, HiOutlineNoSymbol, HiOutlinePencilSquare } from 'react-icons/hi2'
 
-const page = () => {
+const Page = () => {
 
 
     const { categories, isLoading, reload } = useCategories()
@@ -225,4 +225,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

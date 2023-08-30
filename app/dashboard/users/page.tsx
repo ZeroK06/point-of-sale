@@ -22,7 +22,7 @@ interface UserProps {
     address?: string
 }
 
-const page = () => {
+const Page = () => {
 
     const { users, isLoading, reload } = useUsers()
     const [action, setAction] = useState<'update' | 'delete' | 'create' | 'default'>('default')
@@ -338,4 +338,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

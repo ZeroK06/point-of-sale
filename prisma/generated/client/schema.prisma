@@ -1,0 +1,180 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  firstName      String
+  lastName       String
+  dni            String           @unique
+  fullName       String
+  email          String           @unique
+  username       String           @unique
+  phoneNumer     String
+  gender         String
+  role           String
+  password       String
+  urlImage       String           @default("N/A")
+  address        String
+  isVigent       Boolean          @default(true)
+  createAt       DateTime         @default(now())
+  updateAt       DateTime         @default(now())
+  TicketServicio TicketServicio[]
+  DetalleVenta   DetalleVenta[]
+  TicketVenta    TicketVenta[]
+}
+
+model Categoria {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  isVigent Boolean    @default(true)
+  createAt DateTime   @default(now())
+  updateAt DateTime   @default(now())
+  Producto Producto[]
+}
+
+model Producto {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  shortName    String
+  description  String
+  price        Float
+  stock        Int
+  model        String
+  isVigent     Boolean        @default(true)
+  brand        String
+  urlImage     String         @default("N/A")
+  categoriaId  String         @db.ObjectId
+  categoria    Categoria      @relation(fields: [categoriaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createAt     DateTime       @default(now())
+  updateAt     DateTime       @default(now())
+  DetalleVenta DetalleVenta[]
+}
+
+model Empresa {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  razon       String   @unique
+  address     String
+  ruc         String
+  phoneNumber String
+  type        String   @default("empresa")
+  province    String
+  departament String
+  country     String
+  email       String   @unique
+  description String
+  urlImage    String   @default("N/A")
+  createAt    DateTime @default(now())
+  updateAt    DateTime @default(now())
+}
+
+model Ficha {
+  id              String           @id @default(auto()) @map("_id") @db.ObjectId
+  brand           String           @default("N/A")
+  model           String           @default("N/A")
+  case            String           @default("N/A")
+  procesador      String           @default("N/A")
+  memory          String           @default("N/A")
+  almacenamiento  String           @default("N/A")
+  grafica         String           @default("N/A")
+  memoryGrafica   String           @default("N/A")
+  pantalla        String           @default("N/A")
+  sistema         String           @default("N/A")
+  description     String           @default("N/A")
+  createAt        DateTime         @default(now())
+  updateAt        DateTime         @default(now())
+  DetalleServicio DetalleServicio?
+  TicketVenta     TicketVenta[]
+}
+
+model Servicio {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  description     String            @default("N/A")
+  price           Float             @default(0.00)
+  duration        Float             @default(0.00)
+  urlImage        String            @default("N/A")
+  createAt        DateTime          @default(now())
+  updateAt        DateTime          @default(now())
+  DetalleServicio DetalleServicio[]
+}
+
+model additionalPayments {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  mount            Float
+  ticket           TicketServicio @relation(fields: [ticketServicioId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ticketServicioId String         @db.ObjectId
+}
+
+model DetalleServicio {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  fichaId          String         @unique @db.ObjectId
+  servicioId       String         @db.ObjectId
+  ticketServicioId String         @unique @db.ObjectId
+  ficha            Ficha          @relation(fields: [fichaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ticketServicio   TicketServicio @relation(fields: [ticketServicioId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  servicio         Servicio       @relation(fields: [servicioId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createAt         DateTime       @default(now())
+  updateAt         DateTime       @default(now())
+}
+
+model DetalleVenta {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  productoId    String      @db.ObjectId
+  usuarioId     String      @db.ObjectId
+  ticketVentaId String      @db.ObjectId
+  units         Int
+  ticketVenta   TicketVenta @relation(fields: [ticketVentaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createAt      DateTime    @default(now())
+  updateAt      DateTime    @default(now())
+  Usuario       Usuario?    @relation(fields: [usuarioId], references: [id])
+  producto      Producto    @relation(fields: [productoId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model TicketServicio {
+  id                 String               @id @default(auto()) @map("_id") @db.ObjectId
+  clientName         String
+  clientDni          String
+  clientPhoneNumber  String
+  clientAddress      String
+  clientEmail        String               @default("N/A")
+  status             Boolean              @default(false)
+  amount             Float
+  medioPago          String               @default("N/A")
+  description        String               @default("N/A")
+  usuarioId          String               @db.ObjectId
+  tecnico            Usuario              @relation(fields: [usuarioId], references: [id])
+  createAt           DateTime             @default(now())
+  updateAt           DateTime             @default(now())
+  DetalleServicio    DetalleServicio?
+  additionalPayments additionalPayments[]
+}
+
+model TicketVenta {
+  id                String         @id @default(auto()) @map("_id") @db.ObjectId
+  clientName        String
+  clientDni         String
+  clientPhoneNumber String
+  clientAddress     String
+  clientEmail       String         @default("N/A")
+  usuarioId         String         @db.ObjectId
+  amount            Float
+  medioPago         String         @default("N/A")
+  status            Boolean
+  vendedor          Usuario        @relation(fields: [usuarioId], references: [id])
+  createAt          DateTime       @default(now())
+  updateAt          DateTime       @default(now())
+  DetalleVenta      DetalleVenta[]
+  Ficha             Ficha?         @relation(fields: [fichaId], references: [id])
+  fichaId           String?        @db.ObjectId
+}

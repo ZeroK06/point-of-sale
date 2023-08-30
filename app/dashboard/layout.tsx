@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast'
 interface LayoutProps {
     children: React.ReactNode
 }
-const layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
 
 
 
@@ -30,4 +30,4 @@ const layout: React.FC<LayoutProps> = ({ children }) => {
     )
 }
 
-export default layout
+export default Layout

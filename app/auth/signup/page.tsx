@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { Toaster, toast } from 'react-hot-toast'
 import useStore from '@/store/useStore'
 
-const page = () => {
+const Page = () => {
 
     const router = useRouter()
     const { setUser } = useStore()
@@ -94,4 +94,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

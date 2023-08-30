@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { GiTakeMyMoney } from 'react-icons/gi'
 import { FaReceipt } from 'react-icons/fa'
 
-const page = ({ params: { id: id_service } }: { params: { id: string } }) => {
+const Page = ({ params: { id: id_service } }: { params: { id: string } }) => {
 
     const [ticket, setTicket] = useState<Prisma.TicketServicioSelect>()
     const [isLoading, setIsLoading] = useState<boolean | null>(null)
@@ -240,4 +240,4 @@ const page = ({ params: { id: id_service } }: { params: { id: string } }) => {
     )
 }
 
-export default page
+export default Page

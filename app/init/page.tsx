@@ -52,7 +52,7 @@ interface ServiceProps {
     duration: string
     urlImage?: string
 }
-const page = () => {
+const Page = () => {
     const router = useRouter()
     const [user, setUser] = useState<UserProps>(
         {
@@ -434,4 +434,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

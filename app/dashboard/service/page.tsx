@@ -16,7 +16,7 @@ import { HiOutlineArrowPath, HiOutlineEllipsisVertical } from 'react-icons/hi2'
 import { HiOutlineMail } from 'react-icons/hi'
 import { BiUserCheck } from 'react-icons/bi'
 
-const page = () => {
+const Page = () => {
 
     const { services, isLoading, reload } = useServices()
 
@@ -223,4 +223,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

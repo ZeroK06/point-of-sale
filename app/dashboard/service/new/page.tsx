@@ -44,7 +44,7 @@ interface clientProps {
     clientEmail?: string
 }
 
-const page = () => {
+const Page = () => {
     const router = useRouter()
     const { typesService } = useTypesService()
     const [loadingDni, setLoadingDni] = useState(false)
@@ -347,4 +347,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

@@ -20,7 +20,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command'
 
 
-const page = () => {
+const Page = () => {
     const pathname = usePathname()
     const [operation, setOperation] = useState<'delete' | 'edit' | 'default' | 'create'>('default')
     const [idSelect, setIdSelect] = useState('')
@@ -454,4 +454,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

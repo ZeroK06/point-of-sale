@@ -13,7 +13,7 @@ import { toast } from 'react-hot-toast'
 import { HiCheckCircle } from 'react-icons/hi2'
 import Stepper from 'awesome-react-stepper'
 import { useRouter } from 'next/navigation'
-const page = () => {
+const Page = () => {
 
     const router = useRouter()
 
@@ -142,4 +142,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
