@@ -22,21 +22,17 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
     const [isLoading, setIsLoading] = useState<boolean | null>(null)
     const router = useRouter()
     useEffect(() => {
-        if (id.length == 24) {
-            const getSale = async () => {
-                setIsLoading(true)
-                const response = await fetch(`/api/v1/ticket-sale/${id}`)
-                const data = await response.json()
-                if (data.success) {
-                    setError(data.success)
-                }
-                setSale(data.data)
-                setIsLoading(false)
+        const getSale = async () => {
+            setIsLoading(true)
+            const response = await fetch(`/api/v1/ticket-sale/${id}`)
+            const data = await response.json()
+            if (data.success) {
+                setError(data.success)
             }
-            getSale()
-        } else {
-            router.push('/dashboard')
+            setSale(data.data)
+            setIsLoading(false)
         }
+        getSale()
     }, [id])
 
     const { empresa } = useStore()
@@ -117,7 +113,7 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                                     <TableCell className="font-medium ">{index}</TableCell>
                                                     <TableCell>
                                                         {item.producto.urlImage == 'N/A' ? item.producto.urlImage :
-                                                            <Image src={item.producto.urlImage} className='h-10 w-10 object-cover rounded-lg' />
+                                                            <Image alt='image product' src={item.producto.urlImage} className='h-10 w-10 object-cover rounded-lg' />
                                                         }
                                                     </TableCell>
                                                     <TableCell>{item.producto.shortName}</TableCell>

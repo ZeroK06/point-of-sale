@@ -388,7 +388,7 @@ const Page = () => {
                                             <TableCell className="font-medium ">{index}</TableCell>
                                             <TableCell>
                                                 {item.urlImage == 'N/A' ? item.urlImage :
-                                                    <Image src={item.urlImage} className='h-10 w-10 object-cover rounded-lg' />
+                                                    <Image alt='product image' src={item.urlImage} className='h-10 w-10 object-cover rounded-lg' />
                                                 }
                                             </TableCell>
                                             <TableCell>{item.shortName}</TableCell>

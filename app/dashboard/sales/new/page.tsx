@@ -125,7 +125,7 @@ const Page = () => {
                                 .filter(item => item.name.includes(search) || item.shortName.includes(search))
                                 .map(item =>
                                     <div key={item.id} className='h-32 group border rounded-xl relative p-2 border-gray-100 flex gap-4'>
-                                        <Image src={item.urlImage} className='h-full w-[120px] object-cover rounded-xl' />
+                                        <Image src={item.urlImage} className='h-full w-[120px] object-cover rounded-xl' alt='image product' />
                                         <div className='pr-4 pt-4 flex flex-col items-start justify-between'>
 
                                             <h4 className='text-sm'>{item.shortName}</h4>
