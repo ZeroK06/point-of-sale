@@ -10,6 +10,16 @@ export async function GET(
   try {
     const ticket_service = await prisma.ticketServicio.findUnique({
       where: { id: id_ticket },
+      include: {
+        additionalPayments: true,
+        tecnico: true,
+        DetalleServicio: {
+          include: {
+            ficha: true,
+            servicio: true,
+          },
+        },
+      },
     })
     if (!ticket_service) {
       return NextResponse.json({
@@ -17,15 +27,9 @@ export async function GET(
         error: ERRORS.ServicioNoEncontrado,
       })
     }
-    const detall_service = await prisma.detalleServicio.findMany({
-      where: { ticketServicioId: id_ticket },
-      include: {
-        ficha: true,
-      },
-    })
     return NextResponse.json({
       success: true,
-      data: { ticket: ticket_service, detall_sales: detall_service },
+      data: ticket_service,
     })
   } catch (error) {
     return NextResponse.json({ success: false, error })
@@ -38,9 +42,6 @@ export async function DELETE(
   try {
     const delete_ticket = await prisma.ticketServicio.delete({
       where: { id: id_ticket },
-    })
-    const delete_many_detall = await prisma.detalleServicio.deleteMany({
-      where: { ticketServicioId: delete_ticket.id },
     })
 
     return NextResponse.json({ success: true })

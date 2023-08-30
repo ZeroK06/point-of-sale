@@ -10,10 +10,97 @@
   grid-template-columns: 250px 1fr;
 }
 
+.spinner-color {
+  border: 2px solid hsla(var(--primary)/ 0.3);
+  border-bottom: 2px solid transparent;
+}
+
+.dashboard__layout--content {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 100px 1fr;
+}
+
+.dashboard__layout--content--other {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  grid-template-columns: 1fr 300px;
+}
+
+.service_payment {
+  height: 100%;
+  width: 100%;
+}
+
+.cart__sale {
+  height: 100%;
+  width: 100%;
+  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  grid-template-rows: auto auto;
+  align-items: self-start;
+}
+
+
+.bill_payment {
+  height: 100%;
+  width: 100%;
+  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+}
+
+.bg-news {
+  background-color: hsla(var(--primary)/ 0.3);
+}
 
 .bg-match-link {
   background-color: hsla(var(--primary) / 0.1);
 }
+
+.text-primary {
+  background-color: hsl(--primary);
+}
+
+.fill-primary {
+  fill: hsl(var(--primary) / 0.3);
+}
+
+.caret_title {
+  transform: translateX(20px);
+}
+
+.caret_title::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: -15px;
+  height: 80%;
+  border-radius: 3px;
+  width: 10px;
+  background-color: hsl(var(--primary));
+}
+
+.bg-primary {
+  background-color: hsl(--primary);
+}
+
+.shadow-primary {
+  box-shadow: 0px 10px 20px hsl(var(--primary)/0.4);
+}
+
+.bg-primary-50 {
+  background-color: hsla(var(--primary) / 0.3);
+}
+
+.fill-chart-primary {
+  fill: hsl(var(--primary));
+}
+
 
 .transition-menu {
   -webkit-transition: max-height 0.3s;
@@ -23,6 +110,15 @@
   transition: max-height 0.3s ease, opacity 0.3s ease;
 
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -75,6 +171,14 @@
 
 
 
+
+
+
+
+
+
+
+
 @layer base {
   * {
     @apply border-border;
@@ -83,4 +187,26 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+/* Scroll style */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: hsla(var(--primary) / 0.3);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: hsla(var(--primary)/0.6);
 }

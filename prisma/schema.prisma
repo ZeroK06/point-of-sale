@@ -22,8 +22,9 @@ model Usuario {
   gender         String
   role           String
   password       String
-  urlImage       String           @default("None")
+  urlImage       String           @default("N/A")
   address        String
+  isVigent       Boolean          @default(true)
   createAt       DateTime         @default(now())
   updateAt       DateTime         @default(now())
   TicketServicio TicketServicio[]
@@ -34,9 +35,10 @@ model Usuario {
 model Categoria {
   id       String     @id @default(auto()) @map("_id") @db.ObjectId
   name     String
-  Producto Producto[]
+  isVigent Boolean    @default(true)
   createAt DateTime   @default(now())
   updateAt DateTime   @default(now())
+  Producto Producto[]
 }
 
 model Producto {
@@ -47,10 +49,11 @@ model Producto {
   price        Float
   stock        Int
   model        String
+  isVigent     Boolean        @default(true)
   brand        String
-  urlImage     String         @default("None")
+  urlImage     String         @default("N/A")
   categoriaId  String         @db.ObjectId
-  categoria    Categoria      @relation(fields: [categoriaId], references: [id])
+  categoria    Categoria      @relation(fields: [categoriaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   createAt     DateTime       @default(now())
   updateAt     DateTime       @default(now())
   DetalleVenta DetalleVenta[]
@@ -58,42 +61,47 @@ model Producto {
 
 model Empresa {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String   @unique
+  razon       String   @unique
   address     String
+  ruc         String
+  phoneNumber String
+  type        String   @default("empresa")
   province    String
   departament String
   country     String
   email       String   @unique
   description String
-  urlImage    String
+  urlImage    String   @default("N/A")
   createAt    DateTime @default(now())
   updateAt    DateTime @default(now())
 }
 
 model Ficha {
   id              String           @id @default(auto()) @map("_id") @db.ObjectId
-  brand           String           @default("None")
-  model           String           @default("None")
-  procesador      String           @default("None")
-  memory          Int              @default(0)
-  almacenamiento  String           @default("None")
-  grafica         String           @default("None")
-  memoryGrafica   String           @default("None")
-  pantalla        String           @default("None")
-  sistema         String           @default("None")
-  descripction    String           @default("None")
+  brand           String           @default("N/A")
+  model           String           @default("N/A")
+  case            String           @default("N/A")
+  procesador      String           @default("N/A")
+  memory          String           @default("N/A")
+  almacenamiento  String           @default("N/A")
+  grafica         String           @default("N/A")
+  memoryGrafica   String           @default("N/A")
+  pantalla        String           @default("N/A")
+  sistema         String           @default("N/A")
+  description     String           @default("N/A")
   createAt        DateTime         @default(now())
   updateAt        DateTime         @default(now())
   DetalleServicio DetalleServicio?
+  TicketVenta     TicketVenta[]
 }
 
 model Servicio {
   id              String            @id @default(auto()) @map("_id") @db.ObjectId
   name            String
-  description     String            @default("None")
+  description     String            @default("N/A")
   price           Float             @default(0.00)
   duration        Float             @default(0.00)
-  urlImage        String            @default("None")
+  urlImage        String            @default("N/A")
   createAt        DateTime          @default(now())
   updateAt        DateTime          @default(now())
   DetalleServicio DetalleServicio[]
@@ -103,7 +111,7 @@ model additionalPayments {
   id               String         @id @default(auto()) @map("_id") @db.ObjectId
   name             String
   mount            Float
-  ticket           TicketServicio @relation(fields: [ticketServicioId], references: [id])
+  ticket           TicketServicio @relation(fields: [ticketServicioId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   ticketServicioId String         @db.ObjectId
 }
 
@@ -111,11 +119,10 @@ model DetalleServicio {
   id               String         @id @default(auto()) @map("_id") @db.ObjectId
   fichaId          String         @unique @db.ObjectId
   servicioId       String         @db.ObjectId
-  ticketServicioId String         @db.ObjectId
-  amount           Float
-  ficha            Ficha          @relation(fields: [fichaId], references: [id])
-  ticketServicio   TicketServicio @relation(fields: [ticketServicioId], references: [id])
-  servicio         Servicio       @relation(fields: [servicioId], references: [id])
+  ticketServicioId String         @unique @db.ObjectId
+  ficha            Ficha          @relation(fields: [fichaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ticketServicio   TicketServicio @relation(fields: [ticketServicioId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  servicio         Servicio       @relation(fields: [servicioId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   createAt         DateTime       @default(now())
   updateAt         DateTime       @default(now())
 }
@@ -126,11 +133,11 @@ model DetalleVenta {
   usuarioId     String      @db.ObjectId
   ticketVentaId String      @db.ObjectId
   units         Int
-  ticketVenta   TicketVenta @relation(fields: [ticketVentaId], references: [id])
+  ticketVenta   TicketVenta @relation(fields: [ticketVentaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   createAt      DateTime    @default(now())
   updateAt      DateTime    @default(now())
   Usuario       Usuario?    @relation(fields: [usuarioId], references: [id])
-  producto      Producto    @relation(fields: [productoId], references: [id])
+  producto      Producto    @relation(fields: [productoId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model TicketServicio {
@@ -139,14 +146,16 @@ model TicketServicio {
   clientDni          String
   clientPhoneNumber  String
   clientAddress      String
-  clientEmail        String               @default("None")
+  clientEmail        String               @default("N/A")
   status             Boolean              @default(false)
-  description        String               @default("None")
+  amount             Float
+  medioPago          String               @default("N/A")
+  description        String               @default("N/A")
   usuarioId          String               @db.ObjectId
   tecnico            Usuario              @relation(fields: [usuarioId], references: [id])
   createAt           DateTime             @default(now())
   updateAt           DateTime             @default(now())
-  DetalleServicio    DetalleServicio[]
+  DetalleServicio    DetalleServicio?
   additionalPayments additionalPayments[]
 }
 
@@ -156,13 +165,15 @@ model TicketVenta {
   clientDni         String
   clientPhoneNumber String
   clientAddress     String
-  clientEmail       String         @default("None")
+  clientEmail       String         @default("N/A")
   usuarioId         String         @db.ObjectId
   amount            Float
-  medioPago         String
+  medioPago         String         @default("N/A")
   status            Boolean
   vendedor          Usuario        @relation(fields: [usuarioId], references: [id])
   createAt          DateTime       @default(now())
   updateAt          DateTime       @default(now())
   DetalleVenta      DetalleVenta[]
+  Ficha             Ficha?         @relation(fields: [fichaId], references: [id])
+  fichaId           String?        @db.ObjectId
 }

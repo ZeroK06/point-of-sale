@@ -10,7 +10,9 @@ export async function GET(req: Request) {
     const rows = searchParams.get('rows')
     const page = searchParams.get('page')
     if (!rows || !page) {
-      const all_products = await prisma.producto.findMany()
+      const all_products = await prisma.producto.findMany({
+        include: { categoria: true },
+      })
       return NextResponse.json({ data: all_products, success: true })
     } else {
       const count = await prisma.producto.count()
@@ -27,11 +29,12 @@ export async function GET(req: Request) {
       const all_products = await prisma.producto.findMany({
         skip: Number(rows) * (Number(page) - 1),
         take: Number(rows),
+        include: { categoria: true },
       })
       return NextResponse.json({ data: all_products, success: true, pages })
     }
   } catch (error) {
-    return NextResponse.json({ success: false, error })
+    return NextResponse.json({ success: false, error }, { status: 400 })
   }
 }
 
@@ -45,8 +48,7 @@ export async function POST(req: Request) {
     !props.model ||
     !props.price ||
     !props.stock ||
-    !props.categoriaId ||
-    !props.urlImage
+    !props.categoriaId
   ) {
     return NextResponse.json({
       success: false,
@@ -56,11 +58,15 @@ export async function POST(req: Request) {
 
   try {
     const new_product = await prisma.producto.create({
-      data: { ...props },
+      data: {
+        ...props,
+        price: Number(props.price),
+        stock: Number(props.stock),
+      },
     })
 
     return NextResponse.json({ success: true, data: new_product })
   } catch (error) {
-    return NextResponse.json({ success: false, error })
+    return NextResponse.json({ success: false, error }, { status: 400 })
   }
 }

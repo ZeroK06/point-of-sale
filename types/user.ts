@@ -10,4 +10,5 @@ export interface TYPEUSER {
   urlImage: string
   address: string
   password: string
+  username: string
 }

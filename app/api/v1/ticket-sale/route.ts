@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client'
+import { verify } from 'jsonwebtoken'
+import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 interface TYPE_PRODUCT {
@@ -23,10 +25,26 @@ interface TYPE_TICKET_SALE {
 
 const prisma = new PrismaClient()
 
+export async function GET(req: Request) {
+  try {
+    const allSales = await prisma.ticketVenta.findMany({
+      include: { vendedor: true },
+    })
+    return NextResponse.json({ success: true, data: allSales })
+  } catch (error) {
+    return NextResponse.json({ success: false, error })
+  }
+}
+
 export async function POST(req: Request) {
   try {
+    /* Obtener token */
+    const token = cookies().get('token-auth')?.value
+    const secret_key = process.env.NEXT_PUBLIC_JWT_KEY
+
+    const { id_user } = await verify(token, secret_key)
+
     const props: TYPE_TICKET_SALE = await req.json()
-    console.log(true)
 
     if (props.products.length == 0) {
       return NextResponse.json({
@@ -35,6 +53,7 @@ export async function POST(req: Request) {
       })
     }
 
+    /* Sumatorio de precios */
     let sumProducts = 0
     for (const product of props.products) {
       const currentPrice = await prisma.producto.findUnique({
@@ -43,22 +62,26 @@ export async function POST(req: Request) {
       sumProducts += Number(currentPrice?.price) * product.units
     }
 
+    /* Creacion de ticket */
     const ticket = await prisma.ticketVenta.create({
       data: {
         ...props.cliente,
-        usuarioId: req.userId,
+        usuarioId: id_user,
         amount: sumProducts,
         ...props.ticket,
       },
     })
 
+    /* Creacion de los detalles de compra */
     await prisma.detalleVenta.createMany({
       data: props.products.map(item => ({
-        usuarioId: req.userId,
+        usuarioId: id_user,
         ticketVentaId: ticket.id,
         ...item,
       })),
     })
+
+    /* Obtencion de todos los detalles con los productos */
     const find_detall = await prisma.detalleVenta.findMany({
       where: { ticketVentaId: ticket.id },
       include: { producto: true },

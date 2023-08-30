@@ -33,7 +33,11 @@ export async function PATCH(
     const props: TYPE_SERVICE = await req.json()
     const update_service = await prisma.servicio.update({
       where: { id: id_service },
-      data: props,
+      data: {
+        ...props,
+        price: Number(props.price),
+        duration: Number(props.duration),
+      },
     })
 
     return NextResponse.json({ success: true, data: update_service })

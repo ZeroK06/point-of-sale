@@ -22,16 +22,28 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const props: TYPE_SERVICE = await req.json()
-
-    if (!props.name) {
+    const props = await req.json()
+    if (Array.isArray(props)) {
+      const services = await prisma.servicio.createMany({
+        data: props.map(item => ({
+          ...item,
+          price: Number(item.price),
+          duration: Number(item.duration),
+        })),
+      })
+      return NextResponse.json({ success: true, data: services })
+    } else if (typeof props == 'object') {
+      const service = await prisma.servicio.create({
+        data: props,
+      })
+      return NextResponse.json({ success: true, data: service })
+    } else {
       return NextResponse.json({
         success: false,
         error: { code: 0, message: 'Falta datos' },
       })
     }
 
-    const new_service = await prisma.servicio.create({ data: props })
     return NextResponse.json({ success: true, data: new_service })
   } catch (error) {
     return NextResponse.json({ success: false, error })

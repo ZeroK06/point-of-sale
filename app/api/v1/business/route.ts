@@ -5,6 +5,18 @@ import { NextResponse } from 'next/server'
 
 const prisma = new PrismaClient()
 
+export async function GET(req: Request) {
+  try {
+    const business = await prisma.empresa.findFirst({
+      where: { type: 'empresa' },
+    })
+
+    return NextResponse.json({ success: true, data: business })
+  } catch (error) {
+    return NextResponse.json({ success: false, error })
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const count = await prisma.empresa.count()
@@ -19,8 +31,7 @@ export async function POST(req: Request) {
       !props.country ||
       !props.address ||
       !props.description ||
-      !props.email ||
-      !props.urlImage
+      !props.email
     ) {
       return NextResponse.json({
         success: false,

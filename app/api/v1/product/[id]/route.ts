@@ -24,7 +24,7 @@ export async function GET(
     })
     return NextResponse.json({ success: true, find_product })
   } catch (error) {
-    return NextResponse.json({ success: false, error })
+    return NextResponse.json({ success: false, error }, { status: 400 })
   }
 }
 export async function DELETE(
@@ -37,21 +37,27 @@ export async function DELETE(
     })
     return NextResponse.json({ success: true, delete_product })
   } catch (error) {
-    return NextResponse.json({ success: false, error })
+    return NextResponse.json({ success: false, error }, { status: 400 })
   }
 }
 export async function PATCH(
   req: Request,
   { params: { id: id_product } }: { params: { id: string } }
 ) {
+  console.log('entro')
   try {
     const props: PRODUCT_UPDATE_PROPS = await req.json()
+
     const update_product = await prisma.producto.update({
       where: { id: id_product },
-      data: { ...props },
+      data: {
+        ...props,
+        price: Number(props.price),
+        stock: Number(props.stock),
+      },
     })
     return NextResponse.json({ success: true, update_product })
   } catch (error) {
-    return NextResponse.json({ success: false, error })
+    return NextResponse.json({ success: false, error }, { status: 400 })
   }
 }

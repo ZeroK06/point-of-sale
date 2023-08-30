@@ -1,4 +1,5 @@
 export interface TYPE_PRODUCT {
+  id?: string
   name: string
   shortName: string
   description: string
@@ -6,6 +7,8 @@ export interface TYPE_PRODUCT {
   stock: number
   model: string
   brand: string
-  urlImage: string
-  categoriaId: string
+  urlImage?: string
+  categoriaId?: string
+  createAt?: Date
+  updateAt?: Date
 }

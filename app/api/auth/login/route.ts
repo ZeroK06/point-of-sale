@@ -19,6 +19,12 @@ export async function POST(req: Request) {
         error: ERRORS.UsuarioNoEncontrado,
       })
     }
+    if (!find_user.isVigent) {
+      return NextResponse.json({
+        success: false,
+        error: ERRORS.UsuarioNoEncontrado,
+      })
+    }
 
     const isValidPass = await bcrypt.compare(password, find_user.password)
     if (!isValidPass) {
@@ -41,7 +47,7 @@ export async function POST(req: Request) {
     })
 
     cookies().set('token-auth', token)
-    return NextResponse.json({ success: true, token })
+    return NextResponse.json({ success: true, token, data: find_user })
   } catch (error) {
     return NextResponse.json({ success: false, error })
   }

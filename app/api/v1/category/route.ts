@@ -34,20 +34,24 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const { name }: { name: string } = await req.json()
-  if (!name) {
-    return NextResponse.json({
-      success: false,
-      error: 'Falta datos',
-    })
-  }
-
   try {
-    const new_category = await prisma.categoria.create({
-      data: { name },
-    })
-
-    return NextResponse.json({ success: true, data: new_category })
+    const props = await req.json()
+    if (Array.isArray(props)) {
+      const categories = await prisma.categoria.createMany({
+        data: props,
+      })
+      return NextResponse.json({ success: true, data: categories })
+    } else if (typeof props == 'object') {
+      const new_category = await prisma.categoria.create({
+        data: props,
+      })
+      return NextResponse.json({ success: true, data: new_category })
+    } else {
+      return NextResponse.json({
+        success: false,
+        error: 'Falta datos',
+      })
+    }
   } catch (error) {
     return NextResponse.json({ success: false, error })
   }

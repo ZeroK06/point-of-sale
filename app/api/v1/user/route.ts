@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     !props.role ||
     !props.password ||
     !props.address ||
-    !props.urlImage
+    !props.username
   ) {
     return NextResponse.json({
       success: false,

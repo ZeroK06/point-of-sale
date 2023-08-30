@@ -1,0 +1,52 @@
+[
+    {
+        "tipo": "DDR1",
+        "capacidades": [
+            "256MB",
+            "512MB",
+            "1GB",
+            "2GB"
+        ]
+    },
+    {
+        "tipo": "DDR2",
+        "capacidades": [
+            "512MB",
+            "1GB",
+            "2GB",
+            "4GB"
+        ]
+    },
+    {
+        "tipo": "DDR3",
+        "capacidades": [
+            "1GB",
+            "2GB",
+            "4GB",
+            "8GB",
+            "16GB"
+        ]
+    },
+    {
+        "tipo": "DDR4",
+        "capacidades": [
+            "4GB",
+            "8GB",
+            "16GB",
+            "32GB",
+            "64GB",
+            "128GB"
+        ]
+    },
+    {
+        "tipo": "DDR5",
+        "capacidades": [
+            "8GB",
+            "16GB",
+            "32GB",
+            "64GB",
+            "128GB",
+            "256GB"
+        ]
+    }
+]
