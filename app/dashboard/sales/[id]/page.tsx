@@ -11,6 +11,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import useStore from '@/store/useStore'
 import { HiOutlineDeviceMobile } from 'react-icons/hi'
+import Image from 'next/image'
 
 const Page = ({ params: { id } }: { params: { id: string } }) => {
 
@@ -36,7 +37,7 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
         } else {
             router.push('/dashboard')
         }
-    }, [])
+    }, [id])
 
     const { empresa } = useStore()
 
@@ -116,7 +117,7 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                                     <TableCell className="font-medium ">{index}</TableCell>
                                                     <TableCell>
                                                         {item.producto.urlImage == 'N/A' ? item.producto.urlImage :
-                                                            <img src={item.producto.urlImage} className='h-10 w-10 object-cover rounded-lg' />
+                                                            <Image src={item.producto.urlImage} className='h-10 w-10 object-cover rounded-lg' />
                                                         }
                                                     </TableCell>
                                                     <TableCell>{item.producto.shortName}</TableCell>
@@ -166,7 +167,7 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                             <div className="flex flex-col shadow-none rounded-none p-2">
                                                 <div className="flex flex-col justify-between">
                                                     <div className='flex flex-col items-center'>
-                                                        <img src={empresa?.urlImage} alt="" className='w-20' />
+                                                        <Image src={empresa?.urlImage} alt="empresa" className='w-20' />
 
                                                         <h1 className="mt-1 text-base font-semibold text-primary ">{empresa.razon}</h1>
                                                     </div>
@@ -310,7 +311,7 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                                         <path d="M5 26V13.16C5 8.65336 8.58172 5 13 5C17.4183 5 21 8.65336 21 13.16C21 17.6666 17.4183 21.32 13 21.32H12" className="stroke-blue-600 dark:stroke-white" stroke="currentColor" stroke-width="2" />
                                                         <circle cx="13" cy="13.0214" r="5" fill="currentColor" className="fill-blue-600 dark:fill-white" />
                                                     </svg> */}
-                                                        <img src={empresa?.urlImage} alt="" className='w-20' />
+                                                        <Image src={empresa?.urlImage} alt="empresa" className='w-20' />
 
                                                         <h1 className="mt-2 text-lg md:text-xl font-semibold text-primary dark:text-white">{empresa.razon}</h1>
                                                     </div>

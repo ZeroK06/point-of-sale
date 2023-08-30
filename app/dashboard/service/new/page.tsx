@@ -101,11 +101,8 @@ const Page = () => {
         setFichaData(state => ({ ...state, [name]: value }))
     }
 
-    useEffect(() => {
-        console.log(fichaData);
-        console.log({ ...clientData, serviceId, d: fichaData?.description, ...ticket });
 
-    }, [fichaData])
+
 
     return (
         <div className='dashboard__layout--content  overflow-y-scroll bg-gray-100'>
@@ -170,7 +167,7 @@ const Page = () => {
                                     <label className='flex items-center gap-2 text-sm'>Memoria RAM <span className='text-xs text-primary'>opcional</span></label>
                                     <select onChange={handleFichaData} value={fichaData?.memory} autoComplete='off' name='memory' className='flex h-10 w-full rounded-md border border-input bg-transparent px-4 py-2 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'>
                                         <option selected hidden>Selecione una opcion</option>
-                                        {memoryData.map(item => item.capacidades.map(memo => <option value={item.tipo + ' ' + memo}>{item.tipo + ' ' + memo}</option>))}
+                                        {memoryData.map(item => item.capacidades.map(memo => <option key={item.tipo} value={item.tipo + ' ' + memo}>{item.tipo + ' ' + memo}</option>))}
                                     </select>
                                 </div>
                             </div>
@@ -183,21 +180,21 @@ const Page = () => {
                                     <label className='flex items-center gap-2 text-sm'>Memoria grafica <span className='text-xs text-primary'>opcional</span></label>
                                     <select placeholder='...' onChange={handleFichaData} autoComplete='off' value={fichaData?.memoryGrafica} name='memoryGrafica' className='flex h-10 w-full rounded-md border border-input bg-transparent px-4 py-2 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'>
                                         <option selected hidden>Selecione una opcion</option>
-                                        {memoryGrafica.map(item => <option value={item}>{item}</option>)}
+                                        {memoryGrafica.map(item => <option key={item} value={item}>{item}</option>)}
                                     </select>
                                 </div>
                                 <div>
                                     <label className='flex items-center gap-2 text-sm'>Pantalla <span className='text-xs text-primary'>opcional</span></label>
                                     <select placeholder='...' onChange={handleFichaData} autoComplete='off' value={fichaData?.pantalla} name='pantalla' className='flex h-10 w-full rounded-md border border-input bg-transparent px-4 py-2 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'>
                                         <option selected hidden>Selecione una opcion</option>
-                                        {pantallaPulgadas.map(item => <option value={item}>{item}</option>)}
+                                        {pantallaPulgadas.map(item => <option key={item} value={item}>{item}</option>)}
                                     </select>
                                 </div>
                                 <div>
                                     <label className='flex items-center gap-2 text-sm'>Sistema operativo<span className='text-xs text-primary'>opcional</span></label>
                                     <select placeholder='...' onChange={handleFichaData} autoComplete='off' value={fichaData?.sistema} name='sistema' className='flex h-10 w-full rounded-md border border-input bg-transparent px-4 py-2 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'>
                                         <option selected hidden>Selecione una opcion</option>
-                                        {sistemasOperativos.map(item => item.versiones.map(so => <option value={item.nombre + ' ' + so}>{item.nombre + ' ' + so}</option>))}
+                                        {sistemasOperativos.map(item => item.versiones.map(so => <option key={item.nombre + so} value={item.nombre + ' ' + so}>{item.nombre + ' ' + so}</option>))}
                                     </select>
                                 </div>
                             </div>
@@ -214,7 +211,7 @@ const Page = () => {
                                 <label className='flex items-center gap-2 text-sm'>Tipo de servicio <span className='text-xs text-red-400'>obligatorio</span></label>
                                 <select placeholder='...' onChange={handleServiceId} autoComplete='off' value={serviceId} className='flex h-10 w-full rounded-md border border-input bg-transparent px-4 py-2 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'>
                                     <option selected hidden>Selecione una opcion</option>
-                                    {typesService.map(item => <option value={item.id}>{item.name}</option>)}
+                                    {typesService.map(item => <option key={item} value={item.id}>{item.name}</option>)}
                                 </select>
                             </div>
                             <div>
@@ -222,7 +219,7 @@ const Page = () => {
 
                                 <div className='grid grid-cols-4 gap-3 items-center'>
                                     {additionalPayments.map(item =>
-                                        <div className='border border-gray-100 flex flex-row px-4 py-2 gap-4 rounded-lg'>
+                                        <div key={item.name} className='border border-gray-100 flex flex-row px-4 py-2 gap-4 rounded-lg'>
                                             <div className='h-16 w-16 rounded-full flex justify-center items-center bg-primary-50 text-primary '>
                                                 <GiTakeMyMoney size={40} />
                                             </div>
@@ -287,7 +284,7 @@ const Page = () => {
                         </div>
                         <Separator />
                         {additionalPayments.map(item =>
-                            <div className='flex justify-between text-primary my-2'>
+                            <div key={item.name} className='flex justify-between text-primary my-2'>
                                 <p className='font-semibold'>{item.name}</p>
                                 <p>{item.mount}<span className="ml-1 text-xs font-normal text-gray-400">PEN</span></p>
                             </div>
@@ -307,7 +304,7 @@ const Page = () => {
                                 <label className='flex items-center gap-2 text-sm'>Metodo de pago<span className='text-xs text-red-400'>obligatorio</span></label>
                                 <select placeholder='...' onChange={handleTicketData} name='medioPago' value={ticket.medioPago} className='flex h-10 w-full rounded-md border border-input bg-transparent px-4 py-2 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'>
                                     <option selected hidden>Selecione una opcion</option>
-                                    {arrMetodoPago.map(item => <option value={item}>{item}</option>)}
+                                    {arrMetodoPago.map(item => <option key={item} value={item}>{item}</option>)}
                                 </select>
                             </div>
                             <div>

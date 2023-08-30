@@ -22,7 +22,7 @@ const Page = ({ params: { id: id_service } }: { params: { id: string } }) => {
 
         }
         getTicket()
-    }, [])
+    }, [id_service])
 
     return (
 
@@ -131,7 +131,7 @@ const Page = ({ params: { id: id_service } }: { params: { id: string } }) => {
                                         <h2 className='text-lg my-4  font-semibold caret_title relative'>Gastos adicionales</h2>
                                         <div className='grid grid-cols-3'>
                                             {ticket?.additionalPayments.map(item =>
-                                                <div className='border border-gray-100 flex flex-row p-4 gap-4 rounded-lg'>
+                                                <div key={item.id} className='border border-gray-100 flex flex-row p-4 gap-4 rounded-lg'>
                                                     <div className='h-16 w-16 rounded-full flex justify-center items-center bg-primary-50 text-primary '>
                                                         <GiTakeMyMoney size={40} />
                                                     </div>

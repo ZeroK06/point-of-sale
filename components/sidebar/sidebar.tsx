@@ -22,7 +22,7 @@ const SideBar = () => {
         <div className='h-full w-full flex flex-col justify-between break-words'>
             <div>
                 <div className='pt-5 pb-6 flex justify-center'>
-                    <Image src={currentEmpresa.urlImage} className='max-h-14' alt="" />
+                    <Image src={currentEmpresa.urlImage} className='max-h-14' alt="empresa" />
                 </div>
                 <div className='flex flex-col gap-2'>
                     {user.role == 'ADMIN' ?

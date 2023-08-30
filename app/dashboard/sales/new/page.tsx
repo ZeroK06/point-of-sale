@@ -14,6 +14,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { HiOutlineShoppingCart } from 'react-icons/hi2'
 import arrMetodoPago from '../../../../lib/JSON/metodoPago.json'
+import Image from 'next/image'
 
 interface CartItemProps {
     id: string
@@ -124,7 +125,7 @@ const Page = () => {
                                 .filter(item => item.name.includes(search) || item.shortName.includes(search))
                                 .map(item =>
                                     <div key={item.id} className='h-32 group border rounded-xl relative p-2 border-gray-100 flex gap-4'>
-                                        <img src={item.urlImage} className='h-full w-[120px] object-cover rounded-xl' />
+                                        <Image src={item.urlImage} className='h-full w-[120px] object-cover rounded-xl' />
                                         <div className='pr-4 pt-4 flex flex-col items-start justify-between'>
 
                                             <h4 className='text-sm'>{item.shortName}</h4>
@@ -154,9 +155,9 @@ const Page = () => {
                     <div className="flow-root">
                         <ul className="-my-8">
                             {cart?.map(item =>
-                                <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
+                                <li key={item.id} className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
                                     <div className="shrink-0">
-                                        <img className="h-24 w-24 max-w-full rounded-lg object-cover" src={item.image} alt="image" />
+                                        <Image className="h-24 w-24 max-w-full rounded-lg object-cover" src={item.image} alt="image" />
                                     </div>
 
                                     <div className="relative flex flex-1 flex-col justify-between">
@@ -265,7 +266,7 @@ const Page = () => {
                                             <label htmlFor="">Metodo de pago<span className='text-red-500 text-xs'>*</span></label>
                                             <select value={metodoPago} onChange={handleMetodoPago} autoComplete='off' className='flex h-10 w-full rounded-md border border-input bg-transparent px-4 py-2 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'>
                                                 <option selected hidden>Selecione una opcion</option>
-                                                {arrMetodoPago.map(item => <option value={item}>{item}</option>)}
+                                                {arrMetodoPago.map(item => <option key={item} value={item}>{item}</option>)}
                                             </select>
                                         </div>
                                     </AlertDialogDescription>
