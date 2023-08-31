@@ -259,13 +259,13 @@ const Page = () => {
                         <div>
                             <label className='flex items-center gap-2 text-sm'>RUC <span className='text-xs text-red-400'>obligatorio</span></label>
                             <div className='relative'>
-                                <Input onChange={handleBusinessData} name='ruc' max={11} value={business.ruc} autoComplete='off' placeholder='...' />
+                                <Input onChange={handleBusinessData} name='ruc' max={11} type='number' value={business.ruc} autoComplete='off' placeholder='...' />
                             </div>
                         </div>
                         <div>
                             <label className='flex items-center gap-2 text-sm'>Numero telefonico <span className='text-xs text-red-400'>obligatorio</span></label>
                             <div className='relative'>
-                                <Input onChange={handleBusinessData} name='phoneNumber' max={9} value={business.phoneNumber} autoComplete='off' placeholder='...' />
+                                <Input onChange={handleBusinessData} name='phoneNumber' max={9} type='number' value={business.phoneNumber} autoComplete='off' placeholder='...' />
                             </div>
                         </div>
                         <div className='grid grid-cols-3 gap-2'>
@@ -388,11 +388,11 @@ const Page = () => {
                                                 </div>
                                                 <div>
                                                     <label className='flex items-center gap-2 text-sm'>Duracion (min)<span className='text-xs text-red-400'>obligatorio</span></label>
-                                                    <Input placeholder='...' onChange={handleUniqueService} autoComplete='off' value={service.duration} name='duration' />
+                                                    <Input placeholder='...' onChange={handleUniqueService} autoComplete='off' value={service.duration} name='duration' type='number' />
                                                 </div>
                                                 <div>
                                                     <label className='flex items-center gap-2 text-sm'>Precio<span className='text-xs text-red-400'>obligatorio</span></label>
-                                                    <Input placeholder='...' onChange={handleUniqueService} autoComplete='off' value={service.price} name='price' />
+                                                    <Input placeholder='...' onChange={handleUniqueService} autoComplete='off' value={service.price} name='price' type='number' />
                                                 </div>
                                                 <div>
                                                     <label className='flex items-center gap-2 text-sm'>Descripcion <span className='text-xs text-red-400'>obligatorio</span></label>
