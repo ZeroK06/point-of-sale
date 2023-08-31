@@ -6,7 +6,6 @@ export async function middleware(req: NextRequest) {
   try {
     const token = req.cookies.get('token-auth')?.value
     const secret_key = process.env.NEXT_PUBLIC_JWT_KEY
-
     /* const prisma = new PrismaClient()
     if (!token) {
       const count_user = await prisma.usuario.count()
@@ -20,6 +19,13 @@ export async function middleware(req: NextRequest) {
       token,
       new TextEncoder().encode(secret_key)
     )
+    if (req.nextUrl.pathname == '/') {
+      if (isValidToken.payload.init) {
+        return NextResponse.redirect(new URL('/init', req.url))
+      } else {
+        return NextResponse.redirect(new URL('/dashboard', req.url))
+      }
+    }
 
     console.log(isValidToken.payload.init)
     if (req.nextUrl.pathname.startsWith('/init')) {
