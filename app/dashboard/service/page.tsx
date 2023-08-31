@@ -15,23 +15,15 @@ import { BsCreditCard2Front, BsFillHouseFill, BsHouse, BsMailbox, BsPhone, BsWha
 import { HiOutlineArrowPath, HiOutlineEllipsisVertical } from 'react-icons/hi2'
 import { HiOutlineMail } from 'react-icons/hi'
 import { BiUserCheck } from 'react-icons/bi'
+import NavBar from '@/components/navbar/navbar'
 
 const Page = () => {
 
     const { services, isLoading, reload } = useServices()
 
     return (
-        <div className='dashboard__layout--content--other  overflow-y-scroll bg-gray-100'>
-
-            <div className='py-4 px-6 border-b-gray-100 mx-8 border-b-2'>
-                asdasd
-            </div>
-            <div className='py-4 px-6'>
-                <div className='bg-white p-8 rounded-xl'>
-                    asd
-                </div>
-            </div>
-            <div className=' py-4 px-6'>
+        <div className='dashboard__layout--content--other gap-6 p-6 bg-gray-100'>
+            <div className=''>
                 <div className='bg-white p-8 rounded-xl'>
                     <div className='flex flex-row flex-nowrap justify-between'>
                         <div></div>
@@ -217,6 +209,11 @@ const Page = () => {
                                 ))}
                             </TableBody>
                         </Table>}
+                </div>
+            </div>
+            <div className=''>
+                <div className='bg-white p-8 rounded-xl'>
+                    asd
                 </div>
             </div>
         </div >

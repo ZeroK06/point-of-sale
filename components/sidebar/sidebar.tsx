@@ -10,6 +10,7 @@ import { BsFillBoxSeamFill } from 'react-icons/bs'
 import { FaUsersCog } from 'react-icons/fa'
 import useStore from '@/store/useStore'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const SideBar = () => {
 
@@ -19,10 +20,12 @@ const SideBar = () => {
     const { user } = useStore()
 
     return (
-        <div className='h-full w-full flex flex-col justify-between break-words'>
+        <div className='h-screen w-[250px] p-4 flex flex-col justify-between break-words'>
             <div>
                 <div className='pt-5 pb-6 flex justify-center'>
-                    <Image src={currentEmpresa.urlImage} className='max-h-14' alt="empresa" />
+                    <Link href={'/dashboard'}>
+                        <Image src={currentEmpresa.urlImage} width={100} height={50} alt="empresa" />
+                    </Link>
                 </div>
                 <div className='flex flex-col gap-2'>
                     {user.role == 'ADMIN' ?

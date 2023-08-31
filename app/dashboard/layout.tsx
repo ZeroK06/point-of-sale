@@ -1,3 +1,4 @@
+import NavBar from '@/components/navbar/navbar'
 import { SideBar } from '@/components/sidebar'
 import React from 'react'
 import { Toaster } from 'react-hot-toast'
@@ -10,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
 
     return (
-        <div className='dashboard__layout'>
+        <div className='dashboard__layout relative'>
             <Toaster position='top-center' toastOptions={{
                 className: '',
                 style: {
@@ -22,8 +23,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 }
             }} />
 
-            <div className='bg-white border-r-[2px] border-gray-100 p-4 '>
+            <div className=' bg-white fixed top-0 left-0'>
                 <SideBar />
+            </div>
+            <div className='row-span-2'></div>
+            <div className='flex items-center px-8'>
+                <NavBar />
             </div>
             <div>{children}</div>
         </div>

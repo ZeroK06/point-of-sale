@@ -26,10 +26,8 @@ const Page = ({ params: { id: id_service } }: { params: { id: string } }) => {
 
     return (
 
-        <div className='dashboard__layout--content  overflow-y-scroll bg-gray-100'>
-            <header className='py-4 px-6 border-b-gray-100 mx-8 border-b-2'>
-                asdasd
-            </header>
+        <div className='dashboard__layout--content  bg-gray-100'>
+
             <main className=' p-8 service_payment relative'>
                 <Tabs defaultValue="detaills" className="w-full h-full">
                     <TabsList className=" flex flex-row flex-nowrap justify-center">

@@ -148,97 +148,89 @@ const Page = () => {
     }
 
     return (
-        <div className='dashboard__layout--content--other overflow-y-scroll bg-gray-100'>
-            <div className='py-4 px-6 border-b-white mx-8 border-b-2'>asd</div>
-            <div className='py-4 px-6'>
-                <div className='bg-white p-8 rounded-xl'>
-
-                </div>
-            </div>
-            <div className='py-4 px-6'>
-                <div className='bg-white p-8 rounded-xl'>
-                    <div className='flex flex-row flex-nowrap justify-between'>
-                        <div></div>
-                        <div className='flex flex-row flex-nowrap gap-2'>
-                            <Button onClick={reload} className='flex items-center gap-3' variant={'outline'} size={'sm'}>
-                                <HiOutlineArrowPath size={16} />
-                                Refrescar
-                            </Button>
-                            <Button asChild className='flex items-center gap-3 cursor-pointer' size={'sm'} onClick={() => {
-                                setOperation(state => 'create')
-                            }}>
-                                <Label htmlFor='operation-category'>
-                                    <HiMiniPlusSmall size={25} />
-                                    Nueva categoria
-                                </Label>
-                            </Button>
-                        </div>
+        <div className='dashboard__layout--content--other bg-gray-100'>
+            <div className='bg-white p-8 rounded-xl'>
+                <div className='flex flex-row flex-nowrap justify-between'>
+                    <div></div>
+                    <div className='flex flex-row flex-nowrap gap-2'>
+                        <Button onClick={reload} className='flex items-center gap-3' variant={'outline'} size={'sm'}>
+                            <HiOutlineArrowPath size={16} />
+                            Refrescar
+                        </Button>
+                        <Button asChild className='flex items-center gap-3 cursor-pointer' size={'sm'} onClick={() => {
+                            setOperation(state => 'create')
+                        }}>
+                            <Label htmlFor='operation-category'>
+                                <HiMiniPlusSmall size={25} />
+                                Nueva categoria
+                            </Label>
+                        </Button>
                     </div>
-                    {isLoading
-                        ?
-                        <Spinner />
-                        :
-                        <Table className='mt-4'>
-                            <TableCaption>Lista de categorias</TableCaption>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead className="w-[100px]">ID</TableHead>
-                                    <TableHead>Nombre</TableHead>
-                                    <TableHead>Precio</TableHead>
-                                    <TableHead>Duracion</TableHead>
-                                    <TableHead>Fecha de creacion</TableHead>
-                                    <TableHead>Fecha de actualizacion</TableHead>
-                                    <TableHead className="text-right">Acciones</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {typesService.map((item, index) => (
-                                    <TableRow key={item.id} className='h-16'>
-                                        <TableCell className="font-medium">{item.id}</TableCell>
-                                        <TableCell>{item.name}</TableCell>
-                                        <TableCell>{item.price}</TableCell>
-                                        <TableCell>{item.duration}</TableCell>
-                                        <TableCell>{item.createAt}</TableCell>
-                                        <TableCell>{item.updateAt}</TableCell>
-                                        <TableCell className="text-right">
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <Button variant={'outline'} >
-                                                        <HiOutlineEllipsisVertical size={20} />
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent >
-                                                    <DropdownMenuItem asChild>
-                                                        <Label className='flex items-center gap-2' htmlFor='operation-category' onClick={() => {
-                                                            setIdSelect(item.id)
-                                                            setOperation(state => 'update')
-                                                            setUpdateCategory({
-                                                                name: item.name, price: item.price, duration: item.duration
-                                                            })
-                                                        }}>
-                                                            <HiOutlinePencilSquare size={18} />
-                                                            Editar
-                                                        </Label>
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuItem asChild>
-                                                        <Label htmlFor='operation-category' className='flex items-center gap-2' onClick={() => {
-                                                            setIdSelect(item.id)
-                                                            setOperation(state => 'delete')
-                                                        }}>
-                                                            <HiOutlineNoSymbol size={18} />
-                                                            Eliminar
-                                                        </Label>
-                                                    </DropdownMenuItem>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-
-                                        </TableCell>
-                                    </TableRow>
-
-                                ))}
-                            </TableBody>
-                        </Table>}
                 </div>
+                {isLoading
+                    ?
+                    <Spinner />
+                    :
+                    <Table className='mt-4'>
+                        <TableCaption>Lista de categorias</TableCaption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="w-[100px]">ID</TableHead>
+                                <TableHead>Nombre</TableHead>
+                                <TableHead>Precio</TableHead>
+                                <TableHead>Duracion</TableHead>
+                                <TableHead>Fecha de creacion</TableHead>
+                                <TableHead>Fecha de actualizacion</TableHead>
+                                <TableHead className="text-right">Acciones</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {typesService.map((item, index) => (
+                                <TableRow key={item.id} className='h-16'>
+                                    <TableCell className="font-medium">{item.id}</TableCell>
+                                    <TableCell>{item.name}</TableCell>
+                                    <TableCell>{item.price}</TableCell>
+                                    <TableCell>{item.duration}</TableCell>
+                                    <TableCell>{item.createAt}</TableCell>
+                                    <TableCell>{item.updateAt}</TableCell>
+                                    <TableCell className="text-right">
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button variant={'outline'} >
+                                                    <HiOutlineEllipsisVertical size={20} />
+                                                </Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent >
+                                                <DropdownMenuItem asChild>
+                                                    <Label className='flex items-center gap-2' htmlFor='operation-category' onClick={() => {
+                                                        setIdSelect(item.id)
+                                                        setOperation(state => 'update')
+                                                        setUpdateCategory({
+                                                            name: item.name, price: item.price, duration: item.duration
+                                                        })
+                                                    }}>
+                                                        <HiOutlinePencilSquare size={18} />
+                                                        Editar
+                                                    </Label>
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem asChild>
+                                                    <Label htmlFor='operation-category' className='flex items-center gap-2' onClick={() => {
+                                                        setIdSelect(item.id)
+                                                        setOperation(state => 'delete')
+                                                    }}>
+                                                        <HiOutlineNoSymbol size={18} />
+                                                        Eliminar
+                                                    </Label>
+                                                </DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+
+                                    </TableCell>
+                                </TableRow>
+
+                            ))}
+                        </TableBody>
+                    </Table>}
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
                         <Button variant="outline" id='operation-category' className='invisible'>Show Dialog</Button>
@@ -247,6 +239,9 @@ const Page = () => {
                         {operationUI[operation]}
                     </AlertDialogContent>
                 </AlertDialog>
+            </div>
+            <div className='bg-white p-8 rounded-xl'>
+                asd
             </div>
         </div >
     )

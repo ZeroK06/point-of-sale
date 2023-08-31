@@ -336,120 +336,112 @@ const Page = () => {
     }
     return (
         <>
-            <div className='dashboard__layout--content--other  overflow-y-scroll bg-gray-100'>
-                <div className='py-4 px-6 border-b-gray-100 mx-8 border-b-2'>
-                    {pathname}
-                </div>
-                <div className='py-4 px-6'>
-                    <div className='bg-white p-8 rounded-xl'>
-                        asd
-                    </div>
-                </div>
-                <div className=' py-4 px-6'>
-
-                    <div className='bg-white p-8 rounded-xl'>
-                        <div className='flex flex-row flex-nowrap justify-between'>
-                            <div></div>
-                            <div className='flex flex-row flex-nowrap gap-2'>
-                                <Button variant={'outline'} className='flex flex-row flex-nowrap gap-2' size={'sm'} onClick={reload}>
-                                    <HiOutlineArrowPath size={16} />
-                                    Refrescar
-                                </Button>
-                                <Button size={'sm'} asChild onClick={() => setOperation(state => 'create')}>
-                                    <Label htmlFor='alert-product'>
-                                        <HiMiniPlusSmall size={25} />
-                                        Nuevo producto
-                                    </Label>
-                                </Button>
-                            </div>
+            <div className='dashboard__layout--content--other  bg-gray-100'>
+                <div className='bg-white p-8 rounded-xl'>
+                    <div className='flex flex-row flex-nowrap justify-between'>
+                        <div></div>
+                        <div className='flex flex-row flex-nowrap gap-2'>
+                            <Button variant={'outline'} className='flex flex-row flex-nowrap gap-2' size={'sm'} onClick={reload}>
+                                <HiOutlineArrowPath size={16} />
+                                Refrescar
+                            </Button>
+                            <Button size={'sm'} asChild onClick={() => setOperation(state => 'create')}>
+                                <Label htmlFor='alert-product'>
+                                    <HiMiniPlusSmall size={25} />
+                                    Nuevo producto
+                                </Label>
+                            </Button>
                         </div>
-                        {isLoading
-                            ?
-                            <Spinner />
-                            :
-                            <Table className='mt-4'>
-                                <TableCaption>Lista de productos</TableCaption>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead className="w-[100px]">ID</TableHead>
-                                        <TableHead>Imagen</TableHead>
-                                        <TableHead>Nombre</TableHead>
-                                        <TableHead>Marca</TableHead>
-                                        <TableHead>Modelo</TableHead>
-                                        <TableHead>Categoria</TableHead>
-                                        <TableHead>Precio</TableHead>
-                                        <TableHead>Stock</TableHead>
-                                        <TableHead className="text-right">Acciones</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {products.map((item, index) => (
-                                        <TableRow key={item.id} className='h-16'>
-                                            <TableCell className="font-medium ">{index}</TableCell>
-                                            <TableCell>
-                                                {item.urlImage == 'N/A' ? item.urlImage :
-                                                    <Image alt='product image' src={item.urlImage} className='h-10 w-10 object-cover rounded-lg' />
-                                                }
-                                            </TableCell>
-                                            <TableCell>{item.shortName}</TableCell>
-                                            <TableCell>{item.brand}</TableCell>
-                                            <TableCell>{item.model}</TableCell>
-                                            <TableCell>
-                                                <Badge>
-                                                    {item.categoria?.name}
-                                                </Badge>
-                                            </TableCell>
-                                            <TableCell>{'s/.'}{item.price}</TableCell>
-                                            <TableCell>{item.stock}</TableCell>
-                                            <TableCell className="text-right">
-                                                <DropdownMenu>
-                                                    <DropdownMenuTrigger asChild>
-                                                        <Button variant={'outline'} >
-                                                            <HiOutlineEllipsisVertical size={20} />
-                                                        </Button>
-                                                    </DropdownMenuTrigger>
-                                                    <DropdownMenuContent >
-                                                        <DropdownMenuItem asChild>
-                                                            <Label htmlFor='alert-product' onClick={() => {
-                                                                setIdSelect(item.id)
-                                                                setOperation(state => 'delete')
-                                                            }}>Eliminar</Label>
-                                                        </DropdownMenuItem>
-                                                        <DropdownMenuItem asChild>
-                                                            <Label htmlFor='alert-product' onClick={() => {
-                                                                setIdSelect(item.id)
-                                                                setOperation(state => 'edit')
-                                                                setUpdateProduct({
-                                                                    name: item.name,
-                                                                    shortName: item.shortName,
-                                                                    model: item.model,
-                                                                    brand: item.brand,
-                                                                    price: item.price,
-                                                                    stock: item.stock,
-                                                                    description: item.description,
-                                                                    categoriaId: item.categoriaId
-                                                                })
-                                                            }}>Editar</Label>
-                                                        </DropdownMenuItem>
-                                                    </DropdownMenuContent>
-                                                </DropdownMenu>
-
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>}
                     </div>
-                </div>
-                <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                        <Button variant="outline" id='alert-product' className='invisible'>Show Dialog</Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                        {generateUI[operation]}
+                    {isLoading
+                        ?
+                        <Spinner />
+                        :
+                        <Table className='mt-4'>
+                            <TableCaption>Lista de productos</TableCaption>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="w-[100px]">ID</TableHead>
+                                    <TableHead>Imagen</TableHead>
+                                    <TableHead>Nombre</TableHead>
+                                    <TableHead>Marca</TableHead>
+                                    <TableHead>Modelo</TableHead>
+                                    <TableHead>Categoria</TableHead>
+                                    <TableHead>Precio</TableHead>
+                                    <TableHead>Stock</TableHead>
+                                    <TableHead className="text-right">Acciones</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {products.map((item, index) => (
+                                    <TableRow key={item.id} className='h-16'>
+                                        <TableCell className="font-medium ">{index}</TableCell>
+                                        <TableCell>
+                                            {item.urlImage == 'N/A' ? item.urlImage :
+                                                <Image alt='product image' src={item.urlImage} height={40} width={40} className='object-cover rounded-lg' />
+                                            }
+                                        </TableCell>
+                                        <TableCell>{item.shortName}</TableCell>
+                                        <TableCell>{item.brand}</TableCell>
+                                        <TableCell>{item.model}</TableCell>
+                                        <TableCell>
+                                            <Badge>
+                                                {item.categoria?.name}
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell>{'s/.'}{item.price}</TableCell>
+                                        <TableCell>{item.stock}</TableCell>
+                                        <TableCell className="text-right">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button variant={'outline'} >
+                                                        <HiOutlineEllipsisVertical size={20} />
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent >
+                                                    <DropdownMenuItem asChild>
+                                                        <Label htmlFor='alert-product' onClick={() => {
+                                                            setIdSelect(item.id)
+                                                            setOperation(state => 'delete')
+                                                        }}>Eliminar</Label>
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem asChild>
+                                                        <Label htmlFor='alert-product' onClick={() => {
+                                                            setIdSelect(item.id)
+                                                            setOperation(state => 'edit')
+                                                            setUpdateProduct({
+                                                                name: item.name,
+                                                                shortName: item.shortName,
+                                                                model: item.model,
+                                                                brand: item.brand,
+                                                                price: item.price,
+                                                                stock: item.stock,
+                                                                description: item.description,
+                                                                categoriaId: item.categoriaId
+                                                            })
+                                                        }}>Editar</Label>
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
 
-                    </AlertDialogContent>
-                </AlertDialog>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>}
+                    <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <Button variant="outline" id='alert-product' className='invisible'>Show Dialog</Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            {generateUI[operation]}
+
+                        </AlertDialogContent>
+                    </AlertDialog>
+                </div>
+                <div className='bg-white p-8 rounded-xl'>
+                    asd
+                </div>
             </div>
         </>
     )

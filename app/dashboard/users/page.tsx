@@ -235,14 +235,10 @@ const Page = () => {
     }
 
     return (
-        <div className='dashboard__layout--content  overflow-y-scroll bg-gray-100'>
-            <header className='py-4 px-6 border-b-gray-100 mx-8 border-b-2'>
-                asdasd
-            </header>
-            <main className=' p-8 service_payment relative'>
-                <h1 className='text-3xl  font-semibold'>Usuarios</h1>
-                <div className='w-full bg-white p-6 rounded-lg my-4 flex justify-between'>
-                    <div></div>
+        <div className='dashboard__layout--content bg-gray-100'>
+            <div className='flex flex-col gap-6'>
+                <div className='w-full bg-white p-6 rounded-lg flex justify-between'>
+                    <h1 className='text-3xl  font-semibold'>Usuarios</h1>
                     <div className='flex gap-2'>
                         <Button className='' variant={'outline'} size={'sm'}>
                             Refrescar
@@ -333,7 +329,7 @@ const Page = () => {
 
                     </AlertDialogContent>
                 </AlertDialog>
-            </main >
+            </div>
         </div >
     )
 }

@@ -60,11 +60,8 @@ const Page = () => {
 
     return (
 
-        <div className='dashboard__layout--content overflow-y-scroll bg-gray-100'>
+        <div className='dashboard__layout--content  bg-gray-100'>
 
-            <div className='py-4 px-6 border-b-gray-100 mx-8 border-b-2'>
-                asdasd
-            </div>
             <div className='py-8 px-8'>
                 <div className='grid grid-cols-4 gap-8'>
                     <div className='bg-white rounded-xl h-40 p-6 flex flex-col justify-between relative'>
