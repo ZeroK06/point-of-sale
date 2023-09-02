@@ -159,16 +159,16 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                         <div className="flex flex-col shadow-none rounded-none p-2">
                                             <div className="flex flex-col justify-between">
                                                 <div className='flex flex-col items-center'>
-                                                    <Image src={empresa?.urlImage} height={40} width={80} alt="empresa" />
+                                                    <Image src={empresa?.urlImage} height={80} width={150} alt="empresa" />
 
                                                     <h1 className="mt-1 text-base font-semibold text-primary ">{empresa.razon}</h1>
                                                 </div>
 
                                                 <div className="text-center">
-                                                    <h2 className="text-xl md:text-3xl font-semibold text-gray-800 dark:text-gray-200">Boleta #</h2>
-                                                    <span className="mt-1 text-xs block text-gray-500">{sale?.id}</span>
+                                                    <h2 className="text-xl md:text-3xl font-semibold text-black">Boleta #</h2>
+                                                    <span className="mt-1 text-xs block text-black">{sale?.id}</span>
 
-                                                    <div className="flex flex-col text-sm not-italic  text-gray-800 dark:text-gray-200">
+                                                    <div className="flex flex-col text-sm not-italic text-xs  text-black ">
                                                         <span>
                                                             {empresa.ruc}
                                                         </span>
@@ -190,7 +190,7 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
 
                                             <div className="mt-8 flex flex-col gap-3">
                                                 <div>
-                                                    <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">Cliente:</h3>
+                                                    <h3 className="text-sm font-semibold text-black">Cliente:</h3>
                                                     <div className='flex gap-1 text-xs justify-between'>
                                                         <h3>Nombres</h3>
                                                         <p className='text-right'>{sale?.clientName}</p>
@@ -212,36 +212,36 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                                 <div className=" space-y-2">
                                                     <div className="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2">
                                                         <dl className="flex flex-row flex-nowrap justify-between">
-                                                            <dt className=" font-semibold text-sm text-gray-800 dark:text-gray-200">Fecha boleta:</dt>
-                                                            <dd className=" text-gray-500">{(new Date(sale?.createAt)).toLocaleDateString("en-US")}</dd>
+                                                            <dt className=" font-semibold text-xs text-black">Fecha boleta:</dt>
+                                                            <dd className=" text-black text-xs">{(new Date(sale?.createAt)).toLocaleDateString("es-ES")}</dd>
                                                         </dl>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="mt-6">
-                                                <div className="border border-gray-200 p-4 rounded-lg space-y-4 dark:border-gray-700">
+                                                <div className="border border-gray-300 p-4 rounded-lg space-y-4 ">
                                                     <div className="grid grid-cols-[2fr,1fr,1fr]">
-                                                        <div className="text-left text-xs font-medium text-gray-500 uppercase">Item</div>
-                                                        <div className="text-xs font-medium text-gray-500 uppercase">Cant.</div>
-                                                        <div className="text-right text-xs font-medium text-gray-500 uppercase">Total</div>
+                                                        <div className="text-left text-xs font-medium text-black uppercase">Item</div>
+                                                        <div className="text-xs font-medium text-black uppercase">Cant.</div>
+                                                        <div className="text-right text-xs font-medium text-black uppercase">Total</div>
                                                     </div>
 
-                                                    <div className="border-b border-gray-200 dark:border-gray-700"></div>
+                                                    <div className="border-b border-gray-300"></div>
                                                     {sale?.DetalleVenta.map(item =>
                                                         <>
                                                             <div className="grid grid-cols-[minmax(0,2fr),minmax(0,1fr),minmax(0,1fr)]  gap-2">
                                                                 <div className='break-words'>
-                                                                    <p className="text-xs break-words font-medium text-gray-800 dark:text-gray-200">{item.producto.shortName}</p>
+                                                                    <p className="text-xs break-words font-medium text-black">{item.producto.shortName}</p>
                                                                 </div>
                                                                 <div>
-                                                                    <p className="text-xs text-gray-800 dark:text-gray-200">{item.units}</p>
+                                                                    <p className="text-xs text-black">{item.units}</p>
                                                                 </div>
                                                                 <div>
-                                                                    <p className="text-xs text-right text-gray-800 dark:text-gray-200">{item.producto.price * item.units}
+                                                                    <p className="text-xs text-right text-black">{item.producto.price * item.units}
                                                                     </p>
                                                                 </div>
                                                             </div>
-                                                            <div className="sm:hidden border-b border-gray-200 dark:border-gray-700"></div>
+                                                            <div className="sm:hidden border-b border-gray-300 "></div>
                                                         </>
                                                     )}
 
@@ -254,16 +254,16 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                                 <div className="w-full max-w-2xl sm:text-right space-y-2">
                                                     <div className="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2">
                                                         <dl className="grid sm:grid-cols-5 gap-x-3">
-                                                            <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">Subtotal:</dt>
-                                                            <dd className="col-span-2 text-gray-500">{sale?.amount}
-                                                                <span className="ml-1 text-xs font-normal text-gray-400">PEN</span>
+                                                            <dt className="col-span-3 font-semibold text-black">Subtotal:</dt>
+                                                            <dd className="col-span-2 text-black">{sale?.amount}
+                                                                <span className="ml-1 text-xs font-normal text-gray-700">PEN</span>
                                                             </dd>
                                                         </dl>
 
                                                         <dl className="grid sm:grid-cols-5 gap-x-3">
-                                                            <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">Total:</dt>
-                                                            <dd className="col-span-2 text-gray-500">{sale?.amount}
-                                                                <span className="ml-1 text-xs font-normal text-gray-400">PEN</span>
+                                                            <dt className="col-span-3 font-semibold text-black">Total:</dt>
+                                                            <dd className="col-span-2 text-black">{sale?.amount}
+                                                                <span className="ml-1 text-xs font-normal text-gray-700">PEN</span>
                                                             </dd>
                                                         </dl>
 
@@ -272,14 +272,14 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                             </div>
 
                                             <div className="mt-8 sm:mt-12">
-                                                <h4 className="text-lg text-center font-semibold text-gray-800 dark:text-gray-200">¡Gracias!</h4>
-                                                <p className="text-gray-500 text-sm text-center">Si tiene alguna pregunta sobre esta factura, utilice la siguiente información de contacto:</p>
+                                                <h4 className="text-lg text-center font-semibold text-black">¡Gracias!</h4>
+                                                <p className="text-gray-800 text-sm text-center">Si tiene alguna pregunta sobre esta factura, utilice la siguiente información de contacto:</p>
                                                 <div className="mt-2">
-                                                    <p className="block text-sm text-center font-medium text-gray-800 dark:text-gray-200">{empresa.email}</p>
-                                                    <p className="block text-sm text-center font-medium text-gray-800 dark:text-gray-200">{empresa.phoneNumber}</p>
+                                                    <p className="block text-sm text-center font-medium text-black">{empresa.email}</p>
+                                                    <p className="block text-sm text-center font-medium text-black">{empresa.phoneNumber}</p>
                                                 </div>
                                             </div>
-                                            <p className="mt-5 text-sm text-gray-500">© {new Date().getFullYear()} {empresa.razon}.</p>
+                                            <p className="mt-5 text-center text-sm text-gray-700">© {new Date().getFullYear()} {empresa.razon}.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -411,7 +411,7 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                                 </div>
                                             </div>
 
-                                            <div className="mt-8 sm:mt-12">
+                                            <div className="mt-8 ">
                                                 <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">¡Gracias!</h4>
                                                 <p className="text-gray-500">Si tiene alguna pregunta sobre esta factura, utilice la siguiente información de contacto:</p>
                                                 <div className="mt-2">
@@ -420,7 +420,7 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                                 </div>
                                             </div>
 
-                                            <p className="mt-5 text-sm text-gray-500">© {new Date().getFullYear()} {empresa.razon}.</p>
+                                            <h5 className="mt-5 text-center text-sm text-gray-500">© {new Date().getFullYear()} {empresa.razon}.</h5>
                                         </div>
 
 
