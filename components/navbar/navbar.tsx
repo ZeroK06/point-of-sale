@@ -17,33 +17,29 @@ const NavBar = () => {
             <div></div>
             <div className='flex flex-row items-center gap-5'>
                 <div className='flex flex-row gap-2'>
-                    <span className='h-10 w-10 rounded-full flex justify-center items-center text-primary hover:bg-gray-100'>
-                        {theme == 'dark' &&
-                            <button onClick={() => {
-                                toggleTheme('light')
-                                setTheme('light')
-                            }}>
-                                <BsFillMoonStarsFill size={20} />
-                            </button>
-                        }
-                        {theme == 'light' &&
-                            <button onClick={() => {
-                                toggleTheme('dark')
-                                setTheme('dark')
-                            }}>
-                                <BsSunFill size={20} />
-                            </button>
-                        }
+                    {theme == 'dark' &&
+                        <button className='h-10 w-10 rounded-full flex justify-center items-center text-primary hover:bg-gray-100' onClick={() => {
+                            toggleTheme('light')
+                            setTheme('light')
+                        }}>
+                            <BsFillMoonStarsFill size={20} />
+                        </button>
+                    }
+                    {theme == 'light' &&
+                        <button className='h-10 w-10 rounded-full flex justify-center items-center text-primary hover:bg-gray-100' onClick={() => {
+                            toggleTheme('dark')
+                            setTheme('dark')
+                        }}>
+                            <BsSunFill size={20} />
+                        </button>
+                    }
 
-                    </span>
-                    <Link className='h-10 w-10 rounded-full flex justify-center items-center text-primary hover:bg-gray-100' href={'/dashboard/account'}>
+                    <Link className='h-10 w-10 rounded-full flex justify-center items-center text-primary hover:bg-gray-100' href={'/dashboard/users/account'}>
                         <AiFillSetting size={25} />
                     </Link>
                 </div>
                 <div className='flex flex-row flex-nowrap gap-3 cursor-pointer'>
-                    <div className='h-10 w-10 rounded-full bg-gray-300 flex justify-center items-center text-white font-semibold'>
-                        <Image src={user.urlImage == 'N/A' ? DEFAULT_ICON : user.urlImage} alt='avatar user' width={40} height={40} />
-                    </div>
+                    <Image src={user.urlImage == 'N/A' ? DEFAULT_ICON : user.urlImage} alt='avatar user' width={40} height={40} className='h-10 w-10 rounded-full object-cover' />
                     <div className='flex flex-col flex-nowrap justify-center items-start'>
                         <span className='text-sm font-medium'>{user?.firstName}</span>
                         <span className='text-xs'>{user.email}</span>

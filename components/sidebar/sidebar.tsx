@@ -135,7 +135,7 @@ const SideBar = () => {
             </div>
             <div>
                 <div>
-                    <News />
+                    {/* <News /> */}
                 </div>
                 <div>
                     <SideBarItem startContent={<HiOutlineUserCircle />} href='/dashboard/account'>Cuenta</SideBarItem>

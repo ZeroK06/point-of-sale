@@ -165,24 +165,18 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                                 </div>
 
                                                 <div className="text-center">
-                                                    <h2 className="text-xl md:text-3xl font-semibold text-black">Boleta #</h2>
-                                                    <span className="mt-1 text-xs block text-black">{sale?.id}</span>
+                                                    <h2 className="text-xl md:text-2xl font-semibold text-black">Comprobante Electronico</h2>
+                                                    <span className="mt-1 text-xs block font-medium text-black">{sale?.id}</span>
 
-                                                    <div className="flex flex-col text-sm not-italic text-xs  text-black ">
+                                                    <div className="flex flex-col  font-medium not-italic text-xs  text-black ">
                                                         <span>
-                                                            {empresa.ruc}
+                                                            R.U.C. :{empresa.ruc}
                                                         </span>
                                                         <span>
-                                                            {empresa.province}
+                                                            {empresa.province}{' - '}{empresa.departament}{' - '}{empresa.country}
                                                         </span>
                                                         <span>
-                                                            {empresa.departament}
-                                                        </span>
-                                                        <span>
-                                                            {empresa.country}
-                                                        </span>
-                                                        <span>
-                                                            {empresa.address}
+                                                            Tel. :{empresa.phoneNumber}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -191,19 +185,19 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                             <div className="mt-8 flex flex-col gap-3">
                                                 <div>
                                                     <h3 className="text-sm font-semibold text-black">Cliente:</h3>
-                                                    <div className='flex gap-1 text-xs justify-between'>
+                                                    <div className='flex gap-1  font-medium text-xs justify-between'>
                                                         <h3>Nombres</h3>
                                                         <p className='text-right'>{sale?.clientName}</p>
                                                     </div>
-                                                    <div className='flex gap-1 text-xs justify-between'>
+                                                    <div className='flex font-medium gap-1 text-xs justify-between'>
                                                         <h3>DNI</h3>
                                                         <p className='text-right'>{sale?.clientDni}</p>
                                                     </div>
-                                                    <div className='flex gap-1 text-xs justify-between'>
+                                                    <div className='flex font-medium gap-1 text-xs justify-between'>
                                                         <h3>Telefono</h3>
                                                         <p className='text-right'>{sale?.clientPhoneNumber}</p>
                                                     </div>
-                                                    <div className='flex gap-1 text-xs justify-between'>
+                                                    <div className='flex font-medium gap-1 text-xs justify-between'>
                                                         <h3>Direccion</h3>
                                                         <p className='text-right break-words'>{sale?.clientAddress}</p>
                                                     </div>
@@ -213,7 +207,7 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                                     <div className="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2">
                                                         <dl className="flex flex-row flex-nowrap justify-between">
                                                             <dt className=" font-semibold text-xs text-black">Fecha boleta:</dt>
-                                                            <dd className=" text-black text-xs">{(new Date(sale?.createAt)).toLocaleDateString("es-ES")}</dd>
+                                                            <dd className=" font-medium text-black text-xs">{(new Date(sale?.createAt)).toLocaleDateString("es-ES")}</dd>
                                                         </dl>
                                                     </div>
                                                 </div>
@@ -256,14 +250,14 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                                         <dl className="grid sm:grid-cols-5 gap-x-3">
                                                             <dt className="col-span-3 font-semibold text-black">Subtotal:</dt>
                                                             <dd className="col-span-2 text-black">{sale?.amount}
-                                                                <span className="ml-1 text-xs font-normal text-gray-700">PEN</span>
+                                                                <span className="ml-1 text-xs font-medium text-gray-700">PEN</span>
                                                             </dd>
                                                         </dl>
 
                                                         <dl className="grid sm:grid-cols-5 gap-x-3">
                                                             <dt className="col-span-3 font-semibold text-black">Total:</dt>
                                                             <dd className="col-span-2 text-black">{sale?.amount}
-                                                                <span className="ml-1 text-xs font-normal text-gray-700">PEN</span>
+                                                                <span className="ml-1 text-xs font-medium text-gray-700">PEN</span>
                                                             </dd>
                                                         </dl>
 
@@ -275,11 +269,11 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
                                                 <h4 className="text-lg text-center font-semibold text-black">¡Gracias!</h4>
                                                 <p className="text-gray-800 text-sm text-center">Si tiene alguna pregunta sobre esta factura, utilice la siguiente información de contacto:</p>
                                                 <div className="mt-2">
-                                                    <p className="block text-sm text-center font-medium text-black">{empresa.email}</p>
-                                                    <p className="block text-sm text-center font-medium text-black">{empresa.phoneNumber}</p>
+                                                    <p className="block text-xs text-center font-medium text-black">{empresa.email}</p>
+                                                    <p className="block text-xs text-center font-medium text-black">{empresa.phoneNumber}</p>
                                                 </div>
                                             </div>
-                                            <p className="mt-5 text-center text-sm text-gray-700">© {new Date().getFullYear()} {empresa.razon}.</p>
+                                            <p className="mt-5 text-center text-sm font-medium text-gray-700">© {new Date().getFullYear()} {empresa.razon}.</p>
                                         </div>
                                     </div>
                                 </div>

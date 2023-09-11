@@ -1,5 +1,6 @@
 'use client'
 
+import Spinner from '@/components/spinner'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -240,7 +241,7 @@ const Page = () => {
                 <div className='w-full bg-white p-6 rounded-lg flex justify-between'>
                     <h1 className='text-3xl  font-semibold'>Usuarios</h1>
                     <div className='flex gap-2'>
-                        <Button className='' variant={'outline'} size={'sm'}>
+                        <Button className='' onClick={reload} variant={'outline'} size={'sm'}>
                             Refrescar
                         </Button>
                         <Button size={'sm'} asChild>
@@ -250,75 +251,77 @@ const Page = () => {
                         </Button>
                     </div>
                 </div>
-                <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6'>
-                    {
-                        users.map(user =>
-                            <div key={user.id} className={`rounded-2xl bg-white p-4 flex justify-between gap-3 ${!user.isVigent && 'grayscale'}`}>
-                                <div className='flex items-center gap-4'>
-                                    <div className='h-16 w-16 bg-gray-200 rounded-full flex justify-center items-center'>JD</div>
-                                    <div className='flex flex-col items-start gap-1'>
-                                        <h2 className='text-sm font-semibold'>{user.firstName}</h2>
-                                        <p className='text-xs'>{user.email}</p>
-                                        <p className='text-xs py-1 px-2 bg-primary-50 rounded-lg flex justify-center items-center text-primary font-semibold'>{user.role}</p>
-                                        <p className='hover:underline text-xs text-primary cursor-pointer'>Mas detalles</p>
+                {isLoading ? <Spinner /> :
+                    <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+                        {
+                            users.map(user =>
+                                <div key={user.id} className={`rounded-2xl bg-white p-4 flex justify-between gap-3 ${!user.isVigent && 'grayscale'}`}>
+                                    <div className='flex items-center gap-4'>
+                                        <div className='h-16 w-16 bg-gray-200 rounded-full flex justify-center items-center'>JD</div>
+                                        <div className='flex flex-col items-start gap-1'>
+                                            <h2 className='text-sm font-semibold'>{user.firstName}</h2>
+                                            <p className='text-xs'>{user.email}</p>
+                                            <p className='text-xs py-1 px-2 bg-primary-50 rounded-lg flex justify-center items-center text-primary font-semibold'>{user.role}</p>
+                                            <p className='hover:underline text-xs text-primary cursor-pointer'>Mas detalles</p>
+                                        </div>
+                                    </div>
+                                    <div className='flex flex-col gap-2'>
+                                        <a href={`https://wa.me/51${user.phoneNumer}`} target='_blank' className='h-7 w-7 justify-center items-center flex bg-green-600 rounded-full'>
+                                            <BsWhatsapp size={16} color='#fff' />
+                                        </a>
+                                        <label htmlFor='action' onClick={() => {
+                                            setAction('update')
+                                            setIdSelect(user.id)
+                                            setUpdateUser(
+                                                {
+                                                    dni: user.dni,
+                                                    email: user.email,
+                                                    username: user.username,
+                                                    phoneNumer: user.phoneNumer,
+                                                    gender: user.gender,
+                                                    role: user.role,
+                                                    address: user.address,
+                                                }
+                                            )
+                                        }} className='h-7 w-7 justify-center items-center cursor-pointer flex bg-blue-500 rounded-full'>
+                                            <MdEdit size={16} color='#fff' />
+                                        </label>
+                                        {user.isVigent ? <label htmlFor='action' onClick={() => {
+                                            setIdSelect(user.id)
+
+                                            setAction('delete')
+                                            setUpdateUser(
+                                                {
+                                                    dni: user.dni,
+                                                    email: user.email,
+                                                    username: user.username,
+                                                    phoneNumer: user.phoneNumer,
+                                                    gender: user.gender,
+                                                    role: user.role,
+                                                    address: user.address,
+                                                }
+                                            )
+                                        }} className='h-7 w-7 cursor-pointer justify-center items-center flex bg-red-500 rounded-full'>
+                                            <MdAirplanemodeInactive size={16} color='#fff' />
+                                        </label>
+                                            :
+                                            <label onClick={async () => {
+                                                await toast.promise(fetch(`/api/v1/user/${user.id}`, { method: 'PATCH', body: JSON.stringify({ isVigent: true }) }), {
+                                                    loading: 'Cargando...',
+                                                    success: 'Usuario habilitado!',
+                                                    error: 'Error innesperado, intente otra vez'
+                                                })
+                                                reload()
+
+                                            }} className='h-7 w-7 cursor-pointer justify-center items-center flex bg-red-500 rounded-full'>
+                                                <MdAirplanemodeActive size={16} color='#fff' />
+                                            </label>}
                                     </div>
                                 </div>
-                                <div className='flex flex-col gap-2'>
-                                    <a href={`https://wa.me/51${user.phoneNumer}`} target='_blank' className='h-7 w-7 justify-center items-center flex bg-green-600 rounded-full'>
-                                        <BsWhatsapp size={16} color='#fff' />
-                                    </a>
-                                    <label htmlFor='action' onClick={() => {
-                                        setAction('update')
-                                        setIdSelect(user.id)
-                                        setUpdateUser(
-                                            {
-                                                dni: user.dni,
-                                                email: user.email,
-                                                username: user.username,
-                                                phoneNumer: user.phoneNumer,
-                                                gender: user.gender,
-                                                role: user.role,
-                                                address: user.address,
-                                            }
-                                        )
-                                    }} className='h-7 w-7 justify-center items-center flex bg-blue-500 rounded-full'>
-                                        <MdEdit size={16} color='#fff' />
-                                    </label>
-                                    {user.isVigent ? <label htmlFor='action' onClick={() => {
-                                        setIdSelect(user.id)
-
-                                        setAction('delete')
-                                        setUpdateUser(
-                                            {
-                                                dni: user.dni,
-                                                email: user.email,
-                                                username: user.username,
-                                                phoneNumer: user.phoneNumer,
-                                                gender: user.gender,
-                                                role: user.role,
-                                                address: user.address,
-                                            }
-                                        )
-                                    }} className='h-7 w-7 justify-center items-center flex bg-red-500 rounded-full'>
-                                        <MdAirplanemodeInactive size={16} color='#fff' />
-                                    </label>
-                                        :
-                                        <label onClick={async () => {
-                                            await toast.promise(fetch(`/api/v1/user/${user.id}`, { method: 'PATCH', body: JSON.stringify({ isVigent: true }) }), {
-                                                loading: 'Cargando...',
-                                                success: 'Usuario habilitado!',
-                                                error: 'Error innesperado, intente otra vez'
-                                            })
-                                            reload()
-
-                                        }} className='h-7 w-7 justify-center items-center flex bg-red-500 rounded-full'>
-                                            <MdAirplanemodeActive size={16} color='#fff' />
-                                        </label>}
-                                </div>
-                            </div>
-                        )
-                    }
-                </div>
+                            )
+                        }
+                    </div>
+                }
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
                         <button id='action'></button>

@@ -3,14 +3,20 @@ import Spinner from '@/components/spinner'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Prisma } from '@prisma/client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { GiTakeMyMoney } from 'react-icons/gi'
 import { FaReceipt } from 'react-icons/fa'
+import ReactToPrint from 'react-to-print';
+import { Button } from '@/components/ui/button'
+import useStore from '@/store/useStore'
+
 
 const Page = ({ params: { id: id_service } }: { params: { id: string } }) => {
 
     const [ticket, setTicket] = useState<Prisma.TicketServicioSelect>()
     const [isLoading, setIsLoading] = useState<boolean | null>(null)
+    const componentPrint1 = useRef(null)
+    const { empresa } = useStore()
 
     useEffect(() => {
         const getTicket = async () => {
@@ -229,8 +235,120 @@ const Page = ({ params: { id: id_service } }: { params: { id: string } }) => {
                             </>
                         }
                     </TabsContent>
-                    <TabsContent value="print" className='h-full w-full'>
-                        {JSON.stringify(ticket)}
+                    <TabsContent value="print" className='h-full w-full bg-white p-8 rounded-2xl'>
+                        <ReactToPrint trigger={() => <Button>Imprimir</Button>}
+                            content={() => componentPrint1.current}
+                        />
+                        <div ref={componentPrint1}>
+                            <div className="max-w-[14rem] p-1  mx-auto border border-gray-100">
+                                <div className="flex flex-col shadow-none rounded-none p-2">
+                                    <h3 className='text-xl text-center font-semibold'>Servicio</h3>
+                                    <div className='text-center'>
+                                        <span className="mt-1 text-xs block font-medium text-black">{ticket?.id}</span>
+
+                                        <div className="flex flex-col  font-medium not-italic text-xs  text-black ">
+                                            <span>
+                                                R.U.C. :{empresa.ruc}
+                                            </span>
+                                            <span>
+                                                {empresa.province}{' - '}{empresa.departament}{' - '}{empresa.country}
+                                            </span>
+                                            <span>
+                                                Tel. :{empresa.phoneNumber}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className='mt-6'>
+                                        <h3 className='text-center'>Datos de cliente</h3>
+                                        <div className='flex justify-between'>
+                                            <h4 className='text-xs font-medium'>DNI</h4>
+                                            <p className='text-xs font-semibold'>{ticket?.clientDni}</p>
+                                        </div>
+                                        <div className='flex justify-between'>
+                                            <h4 className='text-xs font-medium'>Nombres:</h4>
+                                            <p className='text-xs font-semibold text-right'>{ticket?.clientName}</p>
+                                        </div>
+                                        <div className='flex justify-between'>
+                                            <h4 className='text-xs font-medium'>Tel.</h4>
+                                            <p className='text-xs font-semibold'>{ticket?.clientPhoneNumber}</p>
+                                        </div>
+                                        <div className='flex justify-between'>
+                                            <h4 className='text-xs font-medium'>Direccion</h4>
+                                            <p className='text-xs font-semibold text-right'>{ticket?.clientAddress}</p>
+                                        </div>
+                                    </div>
+                                    <div className='mt-1'>
+                                        <h3 className='text-center'>Datos del Tecnico</h3>
+                                        <div className='flex justify-between'>
+                                            <h4 className='text-xs font-medium'>Nombres</h4>
+                                            <p className='text-xs font-semibold text-right'>{ticket?.tecnico.fullName}</p>
+                                        </div>
+                                        <div className='flex justify-between'>
+                                            <h4 className='text-xs font-medium'>DNI</h4>
+                                            <p className='text-xs font-semibold text-right'>{ticket?.tecnico.dni}</p>
+                                        </div>
+                                    </div>
+                                    <div className='mt-1'>
+                                        <h3 className='text-center'>Datos del Servicio</h3>
+                                        <div className='flex justify-between'>
+                                            <h4 className='text-xs font-medium'>Tipo</h4>
+                                            <p className='text-xs font-semibold text-right'>{ticket?.DetalleServicio.servicio.name}</p>
+                                        </div>
+                                    </div>
+                                    <div className='mt-1'>
+                                        <h3 className='text-center'>Datos Ficha</h3>
+                                        <div>
+                                            <div className='text-xs font-medium flex justify-between'>
+                                                <h4>Marca</h4>
+                                                <p className='text-right'>{ticket?.DetalleServicio.ficha.brand}</p>
+                                            </div>
+                                            <div className='text-xs font-medium flex justify-between'>
+                                                <h4>Modelo</h4>
+                                                <p className='text-right'>{ticket?.DetalleServicio.ficha.model}</p>
+                                            </div>
+                                            <div className='text-xs font-medium flex justify-between'>
+                                                <h4>Case</h4>
+                                                <p className='text-right'>{ticket?.DetalleServicio.ficha.case}</p>
+                                            </div>
+                                            <div className='text-xs font-medium flex justify-between'>
+                                                <h4>Procesador</h4>
+                                                <p className='text-right'>{ticket?.DetalleServicio.ficha.procesador}</p>
+                                            </div>
+                                            <div className='text-xs font-medium flex justify-between'>
+                                                <h4>Memoria RAM</h4>
+                                                <p className='text-right'>{ticket?.DetalleServicio.ficha.memory}</p>
+                                            </div>
+                                            <div className='text-xs font-medium flex justify-between'>
+                                                <h4>Almacenamiento</h4>
+                                                <p className='text-right'>{ticket?.DetalleServicio.ficha.almacenamiento}</p>
+                                            </div>
+                                            <div className='text-xs font-medium flex justify-between'>
+                                                <h4>Grafica</h4>
+                                                <p className='text-right'>{ticket?.DetalleServicio.ficha.grafica}</p>
+                                            </div>
+                                            <div className='text-xs font-medium flex justify-between'>
+                                                <h4>Memoria grafica</h4>
+                                                <p className='text-right'>{ticket?.DetalleServicio.ficha.memoryGrafica}</p>
+                                            </div>
+                                            <div className='text-xs font-medium flex justify-between'>
+                                                <h4>Pantalla</h4>
+                                                <p className='text-right'>{ticket?.DetalleServicio.ficha.pantalla}</p>
+                                            </div>
+                                            <div className='text-xs font-medium flex justify-between'>
+                                                <h4>Sistema operativo</h4>
+                                                <p className='text-right'>{ticket?.DetalleServicio.ficha.sistema}</p>
+                                            </div>
+                                            <div className='text-xs '>
+                                                <h4>Observaciones:</h4>
+                                                <p>{ticket?.DetalleServicio.ficha.description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 className='text-lg mt-6 font-medium italic text-center '>Gracias por su preferencia!</h4>
+                                </div>
+
+                            </div>
+                        </div>
                     </TabsContent>
                 </Tabs>
             </main>
